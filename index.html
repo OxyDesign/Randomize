@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Randomize</title>
+	<style>
+		body{
+			font-family: sans-serif;
+			font-size:13px;
+			text-align: center;
+		}
+		form{
+			display:block;
+			width:203px;
+			margin:0 auto;
+		}
+		select{
+			display:block;
+			float: left;
+			width:100px;
+			margin:0;
+			text-align: center;
+			line-height: 20px;
+			height: 202px;
+			overflow: hidden;
+			border:1px solid #000;
+		}
+		option{
+			padding:0;
+		}
+		#result{
+			display:block;
+			float: left;
+			width:100px;
+			margin:0;
+			line-height: 20px;
+			height: 200px;
+			overflow: hidden;
+			border:1px solid #000;
+			border-left-width:0;
+		}
+		#result ul{
+			display:block;
+			float: left;
+			width:100%;
+			margin:0;
+			padding:0;
+			list-style: none;
+		}
+		#result ul li{
+			display:block;
+			margin:0;
+			line-height: 20px;
+			height: 20px;
+			overflow: hidden;
+		}
+		button{
+			margin-top:10px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Randomize Array</h1>
+	<form>
+		<select multiple>
+			<option selected value="elt01">elt01</option>
+			<option selected value="elt02">elt02</option>
+			<option selected value="elt03">elt03</option>
+			<option selected value="elt04">elt04</option>
+			<option selected value="elt05">elt05</option>
+			<option value="elt06">elt06</option>
+			<option value="elt07">elt07</option>
+			<option value="elt08">elt08</option>
+			<option value="elt09">elt09</option>
+			<option value="elt10">elt10</option>
+		</select>
+		<div id="result"></div>
+		<button>Randomize selection</button>
+	</form>
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="src/randomize.js"></script>
+	<script>
+		function randomVal(elt){
+			var container = elt || $('select'),
+				values = container.val(),
+				result = '';
+
+			if(values){
+				var randomValues = randomize(values),
+					result = $('<ul />');
+
+				for(var i = 0, lgth = randomValues.length; i < lgth; i++){
+					result.append('<li>'+randomValues[i]+'</li>');
+				}
+
+				$('#result').html(result);
+			}
+		}
+		$(document).ready(function(){
+			randomVal();
+			$('select').on('change', function(){
+				randomVal($(this));
+			});
+			$('button').on('click', function(e){
+				e.preventDefault();
+				randomVal();
+			});
+		});
+	</script>
+</body>
+</html>
